@@ -1,5 +1,6 @@
 /// dev dependencies:
-// import "package:flutter_config/flutter_config.dart";
+import "package:flutter_config/flutter_config.dart" show FlutterConfig;
+
 ///dependencies:
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -15,21 +16,23 @@ import 'utils/utils.dart';
 
 void main() async {
   if (!kIsWeb) {
-    WidgetsFlutterBinding.ensureInitialized();
     await Firebase.initializeApp();
   }
   if (kIsWeb) {
+    await FlutterConfig.loadEnvVariables();
     await Firebase.initializeApp(
-      options: const FirebaseOptions(
-          apiKey: "AIzaSyBP6nvrDxejazrpSH59al_ZDhSiXvGMOHY",
-          authDomain: "zoomba-ho.firebaseapp.com",
+      options: FirebaseOptions(
+          apiKey: FlutterConfig.get("apiKey"),
+          authDomain: FlutterConfig.get("authDomain"),
           projectId: "zoomba-ho",
-          storageBucket: "zoomba-ho.appspot.com",
-          messagingSenderId: "1094962438323",
-          appId: "1:1094962438323:web:d74896b9ef9688b6ebd0c6",
-          measurementId: "G-Z5G2FNTL8V"),
+          storageBucket: FlutterConfig.get("storageBucket"),
+          messagingSenderId: FlutterConfig.get("messagingSenderId"),
+          appId: FlutterConfig.get("appId"),
+          measurementId: FlutterConfig.get("measurementId")),
     );
   }
+  WidgetsFlutterBinding.ensureInitialized();
+
   runApp(const MyApp());
 }
 

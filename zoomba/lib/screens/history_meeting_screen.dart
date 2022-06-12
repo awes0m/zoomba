@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-// ignore: depend_on_referenced_packages
 import "package:intl/intl.dart" show DateFormat;
 import 'package:zoomba/resources/firestore_methods.dart';
 import 'package:zoomba/utils/text_styles.dart';
